@@ -14,7 +14,21 @@ class Name(Randommer):
         Returns:
             list: list of names
         '''
-        pass
+        endpoint = "Name"
+        url = self.get_url() + endpoint
+
+        params = {
+            'nameType': nameType,
+            'quantity': quantity
+        }
+
+        headers = {
+            "X-Api-Key" : api_key
+        }
+
+        response = requests.get(url, params=params, headers=headers)
+
+        return response.json()
     
     def get_name_suggestions(self, api_key: str, startingWords: str) -> list:
         '''get name suggestions
@@ -26,7 +40,20 @@ class Name(Randommer):
         Returns:
             list: list of name suggestions
         '''
-        pass
+        endpoint = "Name/Suggestions"
+        url = self.get_url() + endpoint
+
+        params = {
+            'startingWords': startingWords
+        }
+
+        headers = {
+            "X-Api-Key" : api_key
+        }
+
+        response = requests.get(url, params=params, headers=headers)
+
+        return response.json()
     
     def get_name_cultures(self, api_key: str) -> list:
         '''get available cultures
@@ -37,4 +64,17 @@ class Name(Randommer):
         Returns:
             list: list of names
         '''
-        pass
+        endpoint = "Name/Cultures"
+        url = self.get_url() + endpoint
+
+        headers = {
+            "X-Api-Key" : api_key
+        }
+
+        response = requests.get(url, headers=headers)
+
+        return response.json()
+
+token = '9174cdd006f046029c4def5446299088'
+n = Name()
+print(n.get_name_cultures(token))

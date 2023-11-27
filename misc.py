@@ -12,7 +12,16 @@ class Misc(Randommer):
         Returns:
             list: list of cultures
         '''
-        pass
+        endpoint = "Misc/Cultures"
+        url = self.get_url() + endpoint
+
+        headers = {
+            "X-Api-Key" : api_key
+        }
+
+        response = requests.get(url, headers=headers)
+
+        return response.json()
     
     def get_random_address(self, api_key: str, number: int, culture='en') -> list:
         '''get available misc cultures
@@ -24,5 +33,24 @@ class Misc(Randommer):
 
         Returns:
             list: random address
+            url : https://randommer.io/api/Misc/Random-Address
         '''
-        pass
+        endpoint = "Misc/Random-Address"
+        url = self.get_url() + endpoint
+
+        payload = {
+            'number' : number,
+            'culture': culture
+        }
+
+        headers = {
+            "X-Api-Key" : api_key
+        }
+
+        response = requests.get(url, params=payload, headers=headers)
+
+        return response.json()
+
+m = Misc()
+token = '9174cdd006f046029c4def5446299088'
+print(m.get_random_address(token, 998))
