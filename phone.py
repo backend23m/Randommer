@@ -13,8 +13,22 @@ class Phone(Randommer):
 
         Returns:
             list: list of phone numbers
+            https://randommer.io/api/Phone/Generate
         '''
-        pass
+        endpoint = 'Phone/Generate'
+        url = self.get_url() + endpoint
+
+        params = {
+            'CountryCode' : CountryCode,
+            'Quantity': Quantity
+        }
+
+        head = {
+            'X-Api-Key' : api_key
+        }
+
+        r = requests.get(url, params=params, headers=head)
+        return r.json()
     
     def get_IMEI(self, api_key: str, Quantity: int) -> list:
         '''get bulk imei
@@ -26,7 +40,20 @@ class Phone(Randommer):
         Returns:
             list: list of phone numbers
         '''
-        pass
+        endpoint = "Phone/IMEI"
+        url = self.get_url() + endpoint
+
+        p = {
+            'Quantity': Quantity
+        }
+
+        headers = {
+            "X-Api-Key" : api_key
+        }
+
+        response = requests.get(url, params=p, headers=headers)
+
+        return response.json()
     
     def is_valid(self, api_key: str, telephone: str, CountryCode: str) -> bool:
         '''get bulk imei
@@ -39,7 +66,21 @@ class Phone(Randommer):
         Returns:
             bool: is valid
         '''
-        pass
+        endpoint = "Phone/IMEI"
+        url = self.get_url() + endpoint
+
+        p = {
+            'telephone': telephone,
+            'ContryCode': CountryCode
+        }
+
+        headers = {
+            "X-Api-Key" : api_key
+        }
+
+        response = requests.get(url, params=p, headers=headers)
+
+        return response.json()
     
     def get_countries(self, api_key: str) -> list:
         '''get countries
@@ -50,4 +91,17 @@ class Phone(Randommer):
         Returns:
             list: lsit of countries
         '''
-        pass
+        endpoint = "Phone/Countries"
+        url = self.get_url() + endpoint
+
+        headers = {
+            "X-Api-Key" : api_key
+        }
+
+        response = requests.get(url, headers=headers)
+
+        return response.json()
+
+phone1 = Phone()
+token = '9174cdd006f046029c4def5446299088'
+print(phone1.get_countries(token))
